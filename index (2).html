@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EverydayFindsHub — Curated Everyday Finds for Home & Lifestyle</title>
+<meta name="description" content="EverydayFindsHub curates the best home decor, lifestyle, gadget, and trending products with honest picks and Amazon links.">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: '#0F172A',
+          amber: '#FF9900',
+          soft: '#F9FAFB',
+        },
+        fontFamily: {
+          display: ['"Poppins"', 'sans-serif'],
+          body: ['"Inter"', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+  h1,h2,h3,.font-display { font-family: 'Poppins', sans-serif; }
+
+  .card-hidden { display: none; }
+
+  .fade-in {
+    animation: fadeIn 0.35s ease forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .filter-btn.active {
+    background-color: #FF9900;
+    color: #0F172A;
+    border-color: #FF9900;
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
+
+  .no-results { display: none; }
+</style>
+</head>
+<body class="bg-soft text-navy antialiased">
+
+<!-- ============ HEADER / NAVBAR ============ -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 gap-4">
+
+      <!-- Logo -->
+      <a href="#home" class="flex items-center gap-2 shrink-0">
+        <span class="w-9 h-9 rounded-lg bg-navy flex items-center justify-center">
+          <svg class="w-5 h-5 text-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 4l9 5.75V19a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.75z" />
+          </svg>
+        </span>
+        <span class="font-display font-bold text-lg tracking-tight text-navy hidden sm:block">Everyday<span class="text-amber">Finds</span>Hub</span>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-md hidden md:block">
+        <div class="relative">
+          <input id="searchInput" type="text" placeholder="Search products... e.g. LED lamp"
+            class="w-full pl-10 pr-4 py-2 rounded-full border border-slate-300 bg-slate-50 text-sm text-navy placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber focus:border-transparent transition">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0a7.5 7.5 0 10-10.6 0 7.5 7.5 0 0010.6 0z" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Nav Menu -->
+      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+        <a href="#home" class="hover:text-amber transition">Home</a>
+        <a href="#products" data-navcat="Home Decor" class="nav-link hover:text-amber transition">Home Decor</a>
+        <a href="#products" data-navcat="Lifestyle" class="nav-link hover:text-amber transition">Lifestyle</a>
+        <a href="#products" data-navcat="Gadgets" class="nav-link hover:text-amber transition">Gadgets</a>
+        <a href="#products" data-navcat="Trending" class="nav-link hover:text-amber transition">Trending</a>
+        <a href="#contact" class="hover:text-amber transition">Contact</a>
+      </nav>
+
+      <!-- Mobile menu button -->
+      <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-md text-navy hover:bg-slate-100">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile search + menu -->
+    <div id="mobileMenu" class="hidden lg:hidden pb-4 space-y-3">
+      <div class="relative">
+        <input id="searchInputMobile" type="text" placeholder="Search products..."
+          class="w-full pl-10 pr-4 py-2 rounded-full border border-slate-300 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-amber">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0a7.5 7.5 0 10-10.6 0 7.5 7.5 0 0010.6 0z" />
+        </svg>
+      </div>
+      <nav class="flex flex-col gap-1 text-sm font-medium text-slate-700">
+        <a href="#home" class="py-2 px-2 rounded hover:bg-slate-100">Home</a>
+        <a href="#products" data-navcat="Home Decor" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Home Decor</a>
+        <a href="#products" data-navcat="Lifestyle" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Lifestyle</a>
+        <a href="#products" data-navcat="Gadgets" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Gadgets</a>
+        <a href="#products" data-navcat="Trending" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Trending</a>
+        <a href="#contact" class="py-2 px-2 rounded hover:bg-slate-100">Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO SECTION ============ -->
+<section id="home" class="relative overflow-hidden bg-navy">
+  <div class="absolute inset-0 opacity-[0.06]" style="background-image: radial-gradient(circle at 2px 2px, #FF9900 1px, transparent 0); background-size: 28px 28px;"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative">
+    <div class="max-w-2xl">
+      <span class="inline-block text-xs font-semibold tracking-widest uppercase text-amber bg-amber/10 border border-amber/30 px-3 py-1 rounded-full mb-6">
+        Curated Picks, Updated Weekly
+      </span>
+      <h1 class="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight tracking-tight">
+        Discover the Best Everyday Finds for Your <span class="text-amber">Home &amp; Lifestyle</span>
+      </h1>
+      <p class="mt-6 text-lg text-slate-300 max-w-xl">
+        We hand-pick the most useful, best-rated products across home decor, lifestyle, and gadgets — so you don't have to scroll for hours. Every pick is tested against real reviews before it makes the list.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#products" class="inline-flex items-center gap-2 bg-amber hover:bg-amber/90 text-navy font-semibold px-7 py-3.5 rounded-full shadow-lg shadow-amber/20 transition transform hover:-translate-y-0.5">
+          Browse All Products
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+        <a href="#trending" class="inline-flex items-center gap-2 text-white border border-white/20 hover:border-white/50 font-medium px-7 py-3.5 rounded-full transition">
+          See What's Trending
+        </a>
+      </div>
+      <div class="mt-10 flex items-center gap-6 text-slate-400 text-sm">
+        <div class="flex items-center gap-1.5"><span class="text-amber">★★★★★</span> Trusted by 12,000+ readers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORY FILTER + PRODUCT GRID ============ -->
+<section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+  <div class="text-center max-w-xl mx-auto mb-10">
+    <h2 class="font-display text-3xl md:text-4xl font-bold text-navy">Editor's Picks</h2>
+    <p class="mt-3 text-slate-500">Browse by category, or search above to find exactly what you need.</p>
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="flex flex-wrap justify-center gap-3 mb-12" id="filterBar">
+    <button class="filter-btn active px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold transition" data-filter="All">All</button>
+    <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Home Decor">Home Decor</button>
+    <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Lifestyle">Lifestyle</button>
+    <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Gadgets">Gadgets</button>
+  </div>
+
+  <!-- Product Grid -->
+  <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <!-- Cards injected by JS from PRODUCTS array below -->
+  </div>
+
+  <p id="noResults" class="no-results text-center text-slate-500 py-16">
+    No products matched your search. Try a different keyword or category.
+  </p>
+</section>
+
+<!-- ============ TRENDING STRIP (uses same data, tag-based) ============ -->
+<section id="trending" class="bg-white border-y border-slate-200 py-14">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-2 mb-6">
+      <span class="w-2.5 h-2.5 rounded-full bg-amber animate-pulse"></span>
+      <h3 class="font-display text-xl font-bold text-navy">Trending This Week</h3>
+    </div>
+    <div id="trendingGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER / CTA BAND ============ -->
+<section class="bg-navy">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 text-center">
+    <h3 class="font-display text-2xl md:text-3xl font-bold text-white">Never miss a great find</h3>
+    <p class="mt-3 text-slate-300">Get our best new picks dropped into your inbox, twice a month. No spam, just genuinely useful stuff.</p>
+    <form id="newsletterForm" class="mt-6 flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+      <input type="email" required placeholder="you@example.com"
+        class="flex-1 px-4 py-3 rounded-full border border-white/20 bg-white/5 text-white placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-amber">
+      <button type="submit" class="bg-amber hover:bg-amber/90 text-navy font-semibold px-6 py-3 rounded-full transition whitespace-nowrap">Subscribe</button>
+    </form>
+    <p id="newsletterMsg" class="mt-3 text-sm text-amber hidden">Thanks! You're on the list.</p>
+  </div>
+</section>
+
+<!-- ============ AFFILIATE DISCLOSURE ============ -->
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="bg-amber/10 border border-amber/30 rounded-2xl p-6 text-sm text-slate-600 leading-relaxed">
+    <p class="font-semibold text-navy mb-1">Affiliate Disclosure</p>
+    <p>EverydayFindsHub is a participant in the Amazon Services LLC Associates Program, an affiliate advertising program designed to provide a means for sites to earn advertising fees by advertising and linking to Amazon.com. As an Amazon Associate, we earn from qualifying purchases at no additional cost to you. All product recommendations are based on genuine research and honest opinion.</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="bg-navy text-slate-400">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-8 h-8 rounded-lg bg-amber/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 4l9 5.75V19a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1V9.75z" />
+            </svg>
+          </span>
+          <span class="font-display font-bold text-white">EverydayFindsHub</span>
+        </div>
+        <p class="text-sm leading-relaxed">Honest, curated product picks for a better everyday home and lifestyle.</p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-3">Categories</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#products" class="nav-link hover:text-amber" data-navcat="Home Decor">Home Decor</a></li>
+          <li><a href="#products" class="nav-link hover:text-amber" data-navcat="Lifestyle">Lifestyle</a></li>
+          <li><a href="#products" class="nav-link hover:text-amber" data-navcat="Gadgets">Gadgets</a></li>
+          <li><a href="#trending" class="hover:text-amber">Trending</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-3">Company</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-amber">About Us</a></li>
+          <li><a href="#" class="hover:text-amber">Privacy Policy</a></li>
+          <li><a href="#" class="hover:text-amber">Affiliate Disclaimer</a></li>
+          <li><a href="#" class="hover:text-amber">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold text-sm mb-3">Contact</h4>
+        <ul class="space-y-2 text-sm">
+          <li>hello@everydayfindshub.com</li>
+          <li>Mon–Fri, 9am–6pm</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p>© 2026 EverydayFindsHub. All rights reserved.</p>
+      <p>As an Amazon Associate, we earn from qualifying purchases.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   EDIT YOUR PRODUCTS HERE
+   Add, remove, or edit objects in this array to update
+   the whole site. category must be one of:
+   "Home Decor" | "Lifestyle" | "Gadgets"
+   Set trending: true to also show it in the Trending strip.
+   ========================================================= */
+const PRODUCTS = [
+  {
+    title: "Minimalist Ceramic Vase",
+    category: "Home Decor",
+    image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=600&q=80",
+    rating: 4.8,
+    reviews: "1,240",
+    price: "$24.99",
+    highlights: ["Handcrafted matte finish", "Fits any modern shelf", "Water-tight for real flowers"],
+    link: "#",
+    trending: true
+  },
+  {
+    title: "Ambient LED Mood Lamp",
+    category: "Home Decor",
+    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80",
+    rating: 4.7,
+    reviews: "3,015",
+    price: "$32.50",
+    highlights: ["16 color modes + app control", "Warm wood-grain base", "Great as a night light"],
+    link: "#",
+    trending: true
+  },
+  {
+    title: "Smart Posture Corrector",
+    category: "Lifestyle",
+    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80",
+    rating: 4.6,
+    reviews: "2,187",
+    price: "$19.99",
+    highlights: ["Gentle vibration reminders", "Adjustable, breathable strap", "Discreet under clothing"],
+    link: "#",
+    trending: false
+  },
+  {
+    title: "Bamboo Bathroom Organizer Tray",
+    category: "Home Decor",
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=600&q=80",
+    rating: 4.9,
+    reviews: "876",
+    price: "$27.00",
+    highlights: ["100% sustainable bamboo", "Non-slip rubber feet", "Fits sinks up to 34 in."],
+    link: "#",
+    trending: false
+  },
+  {
+    title: "Wireless Fast-Charging Stand",
+    category: "Gadgets",
+    image: "https://images.unsplash.com/photo-1591290619762-c0f9e3f11c66?auto=format&fit=crop&w=600&q=80",
+    rating: 4.5,
+    reviews: "4,502",
+    price: "$21.99",
+    highlights: ["15W fast charge, all phones", "Adjustable viewing angle", "LED charge indicator"],
+    link: "#",
+    trending: true
+  },
+  {
+    title: "Portable Mini Projector",
+    category: "Gadgets",
+    image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80",
+    rating: 4.4,
+    reviews: "1,932",
+    price: "$79.99",
+    highlights: ["1080p supported, 120in screen", "Built-in speaker", "HDMI, USB & phone mirroring"],
+    link: "#",
+    trending: false
+  },
+  {
+    title: "Insulated Travel Tumbler",
+    category: "Lifestyle",
+    image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=600&q=80",
+    rating: 4.8,
+    reviews: "5,610",
+    price: "$18.49",
+    highlights: ["Keeps drinks cold 24h / hot 12h", "Leak-proof lid", "Fits standard cup holders"],
+    link: "#",
+    trending: true
+  },
+  {
+    title: "Aromatherapy Diffuser Set",
+    category: "Home Decor",
+    image: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&w=600&q=80",
+    rating: 4.7,
+    reviews: "2,764",
+    price: "$29.99",
+    highlights: ["Whisper-quiet ultrasonic mist", "7-color ambient light", "Auto shut-off safety"],
+    link: "#",
+    trending: false
+  }
+];
+
+const grid = document.getElementById('productGrid');
+const trendingGrid = document.getElementById('trendingGrid');
+const noResults = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+const searchInputMobile = document.getElementById('searchInputMobile');
+
+let activeFilter = 'All';
+let activeSearch = '';
+
+function starString(rating) {
+  const full = Math.round(rating);
+  return '★'.repeat(full) + '☆'.repeat(5 - full);
+}
+
+function productCard(p) {
+  return `
+    <div class="product-card fade-in bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300" data-category="${p.category}" data-title="${p.title.toLowerCase()}">
+      <div class="relative overflow-hidden aspect-[4/3] bg-slate-100">
+        <img src="${p.image}" alt="${p.title}" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+        <span class="absolute top-3 left-3 bg-navy text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">${p.category}</span>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <h3 class="font-display font-semibold text-navy text-base leading-snug">${p.title}</h3>
+        <div class="flex items-center gap-1.5 mt-1.5 text-sm">
+          <span class="text-amber tracking-tight">${starString(p.rating)}</span>
+          <span class="text-slate-500 text-xs">${p.rating} · ${p.reviews} reviews</span>
+        </div>
+        <ul class="mt-3 space-y-1.5 text-xs text-slate-500 flex-1">
+          ${p.highlights.map(h => `
+            <li class="flex items-start gap-1.5">
+              <svg class="w-3.5 h-3.5 text-amber mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              <span>${h}</span>
+            </li>`).join('')}
+        </ul>
+        <div class="mt-4 flex items-center justify-between">
+          <span class="font-display font-bold text-navy">${p.price}</span>
+        </div>
+        <a href="${p.link}" target="_blank" rel="nofollow sponsored noopener"
+          class="mt-3 w-full inline-flex items-center justify-center gap-2 bg-amber hover:bg-amber/90 text-navy font-semibold text-sm px-4 py-2.5 rounded-full transition">
+          Check Price on Amazon
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+        </a>
+      </div>
+    </div>`;
+}
+
+function trendingCard(p) {
+  return `
+    <a href="#products" data-jump="${p.title.toLowerCase()}" class="trending-jump group block bg-slate-50 rounded-xl border border-slate-200 overflow-hidden hover:border-amber transition">
+      <div class="aspect-square overflow-hidden">
+        <img src="${p.image}" alt="${p.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+      </div>
+      <div class="p-3">
+        <p class="text-xs font-semibold text-navy truncate">${p.title}</p>
+        <p class="text-[11px] text-amber font-medium mt-0.5">${p.rating} ★ · ${p.price}</p>
+      </div>
+    </a>`;
+}
+
+function render() {
+  const filtered = PRODUCTS.filter(p => {
+    const matchesCategory = activeFilter === 'All' || p.category === activeFilter;
+    const matchesSearch = p.title.toLowerCase().includes(activeSearch) || p.category.toLowerCase().includes(activeSearch);
+    return matchesCategory && matchesSearch;
+  });
+
+  grid.innerHTML = filtered.map(productCard).join('');
+  noResults.style.display = filtered.length === 0 ? 'block' : 'none';
+}
+
+function renderTrending() {
+  const trending = PRODUCTS.filter(p => p.trending);
+  trendingGrid.innerHTML = trending.map(trendingCard).join('');
+}
+
+// Filter buttons
+document.getElementById('filterBar').addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  render();
+});
+
+// Nav links that jump + filter
+document.querySelectorAll('.nav-link[data-navcat]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const cat = link.dataset.navcat;
+    document.querySelectorAll('.filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.filter === cat);
+    });
+    activeFilter = cat;
+    render();
+    document.getElementById('mobileMenu').classList.add('hidden');
+  });
+});
+
+// Search (desktop + mobile, synced)
+function handleSearch(value) {
+  activeSearch = value.trim().toLowerCase();
+  searchInput.value = value;
+  searchInputMobile.value = value;
+  render();
+}
+searchInput.addEventListener('input', (e) => handleSearch(e.target.value));
+searchInputMobile.addEventListener('input', (e) => handleSearch(e.target.value));
+
+// Trending card click -> jump to matching product in grid
+trendingGrid.addEventListener('click', (e) => {
+  const card = e.target.closest('.trending-jump');
+  if (!card) return;
+  e.preventDefault();
+  handleSearch('');
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'All'));
+  activeFilter = 'All';
+  render();
+  document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+});
+
+// Mobile menu toggle
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+
+// Newsletter (demo only)
+document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  document.getElementById('newsletterMsg').classList.remove('hidden');
+  e.target.reset();
+});
+
+// Init
+render();
+renderTrending();
+</script>
+</body>
+</html>
