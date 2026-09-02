@@ -53,7 +53,7 @@
 <body class="bg-soft text-navy antialiased">
 
 <!-- ============ HEADER / NAVBAR ============ -->
-<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 gap-4">
 
@@ -79,11 +79,12 @@
       </div>
 
       <!-- Nav Menu -->
-      <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-slate-600">
+      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-600">
         <a href="#home" class="hover:text-amber transition">Home</a>
         <a href="#products" data-navcat="Home & Kitchen" class="nav-link hover:text-amber transition">Home &amp; Kitchen</a>
         <a href="#products" data-navcat="Beauty & Style" class="nav-link hover:text-amber transition">Beauty &amp; Style</a>
         <a href="#products" data-navcat="Gadgets" class="nav-link hover:text-amber transition">Gadgets</a>
+        <a href="#products" data-navcat="Bags & Luggage" class="nav-link hover:text-amber transition">Bags &amp; Luggage</a>
         <a href="#trending" class="hover:text-amber transition">Trending</a>
         <a href="#contact" class="hover:text-amber transition">Contact</a>
       </nav>
@@ -110,6 +111,7 @@
         <a href="#products" data-navcat="Home & Kitchen" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Home &amp; Kitchen</a>
         <a href="#products" data-navcat="Beauty & Style" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Beauty &amp; Style</a>
         <a href="#products" data-navcat="Gadgets" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Gadgets</a>
+        <a href="#products" data-navcat="Bags & Luggage" class="nav-link py-2 px-2 rounded hover:bg-slate-100">Bags &amp; Luggage</a>
         <a href="#trending" class="py-2 px-2 rounded hover:bg-slate-100">Trending</a>
         <a href="#contact" class="py-2 px-2 rounded hover:bg-slate-100">Contact</a>
       </nav>
@@ -160,6 +162,7 @@
     <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Home & Kitchen">Home &amp; Kitchen</button>
     <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Beauty & Style">Beauty &amp; Style</button>
     <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Gadgets">Gadgets</button>
+    <button class="filter-btn px-5 py-2 rounded-full border border-slate-300 text-sm font-semibold text-navy hover:border-amber transition" data-filter="Bags & Luggage">Bags &amp; Luggage</button>
   </div>
 
   <!-- Product Grid -->
@@ -224,21 +227,22 @@
           <li><a href="#products" class="nav-link hover:text-amber" data-navcat="Home & Kitchen">Home &amp; Kitchen</a></li>
           <li><a href="#products" class="nav-link hover:text-amber" data-navcat="Beauty & Style">Beauty &amp; Style</a></li>
           <li><a href="#products" data-navcat="Gadgets" class="nav-link hover:text-amber">Gadgets</a></li>
+          <li><a href="#products" data-navcat="Bags & Luggage" class="nav-link hover:text-amber">Bags &amp; Luggage</a></li>
           <li><a href="#trending" class="hover:text-amber">Trending</a></li>
         </ul>
       </div>
       <div>
         <h4 class="text-white font-semibold text-sm mb-3">Company</h4>
         <ul class="space-y-2 text-sm">
-          <li><a href="#" class="hover:text-amber">About Us</a></li>
-          <li><a href="#" class="hover:text-amber">Privacy Policy</a></li>
-          <li><a href="#" class="hover:text-amber">Affiliate Disclaimer</a></li>
+          <li><button onclick="openModal('about')" class="hover:text-amber transition text-left">About Us</button></li>
+          <li><button onclick="openModal('privacy')" class="hover:text-amber transition text-left">Privacy Policy</button></li>
+          <li><button onclick="openModal('disclaimer')" class="hover:text-amber transition text-left">Affiliate Disclaimer</button></li>
         </ul>
       </div>
       <div>
         <h4 class="text-white font-semibold text-sm mb-3">Contact</h4>
         <ul class="space-y-2 text-sm">
-          <li>hello@everydayfindshub.com</li>
+          <li><a href="mailto:sajrinsetu@gmail.com" class="hover:text-amber transition">sajrinsetu@gmail.com</a></li>
           <li>Mon–Fri, 9am–6pm</li>
         </ul>
       </div>
@@ -249,6 +253,20 @@
     </div>
   </div>
 </footer>
+
+<!-- ============ MODAL (POPUP FOR ABOUT, PRIVACY, DISCLAIMER) ============ -->
+<div id="infoModal" class="fixed inset-0 z-50 bg-black/60 hidden items-center justify-center p-4 backdrop-blur-sm">
+  <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 md:p-8 relative shadow-2xl">
+    <button onclick="closeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-navy p-1 rounded-lg hover:bg-slate-100 transition">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <h3 id="modalTitle" class="font-display text-2xl font-bold text-navy mb-4"></h3>
+    <div id="modalContent" class="text-sm text-slate-600 space-y-3 leading-relaxed"></div>
+    <div class="mt-6 pt-4 border-t border-slate-100 text-right">
+      <button onclick="closeModal()" class="bg-slate-100 hover:bg-slate-200 text-navy font-semibold px-5 py-2 rounded-full text-sm transition">Close</button>
+    </div>
+  </div>
+</div>
 
 <script>
 const PRODUCTS = [
@@ -428,6 +446,72 @@ const PRODUCTS = [
     link: "https://amzn.to/3UP423c",
     trending: true
   },
+  {
+    title: "Samsung Galaxy Buds 3 FE (2025) True Wireless Earbuds, Black",
+    category: "Gadgets",
+    image: "https://m.media-amazon.com/images/I/61hadKRotcL._AC_SL1500_.jpg",
+    rating: 4.4,
+    reviews: "1.2k+",
+    price: "$119.99",
+    highlights: ["Active Noise Cancellation", "Clear Calls & Long Lasting Battery", "Hands Free AI"],
+    link: "https://amzn.to/4wY2d1l",
+    trending: true
+  },
+  {
+    title: "Amazon Basics Travel Laptop Backpack for 15.6 inch Laptop, Black",
+    category: "Bags & Luggage",
+    image: "https://m.media-amazon.com/images/I/81Gjpw-FBpL._AC_SL1500_.jpg",
+    rating: 4.6,
+    reviews: "2.9k+",
+    price: "$33.59",
+    highlights: ["Fits up to 15.6-inch Laptop", "Water Resistant & Durable", "Padded Shoulder Straps"],
+    link: "https://amzn.to/4gxd51q",
+    trending: true
+  },
+  {
+    title: "Amazon Basics Hardshell Expandable Suitcase Checked Luggage, Navy Blue",
+    category: "Bags & Luggage",
+    image: "https://m.media-amazon.com/images/I/611+Lz6hKvL._AC_SL1500_.jpg",
+    rating: 4.4,
+    reviews: "62k+",
+    price: "$94.50",
+    highlights: ["Scratch-Resistant Hardshell", "Expandable up to 15% More Space", "Multi-Directional Spinner Wheels"],
+    link: "https://amzn.to/4ygo7y0",
+    trending: true
+  },
+  {
+    title: "6 Pcs Plastic Martini Glasses 7oz Flower Disposable Cocktail Coupe Glasses",
+    category: "Home & Kitchen",
+    image: "https://m.media-amazon.com/images/I/61bqkOfsPcL._AC_SL1500_.jpg",
+    rating: 4.1,
+    reviews: "43",
+    price: "$12.99",
+    highlights: ["Set of 6 Flower-Shaped Glasses", "Detachable Vintage Amber & Blue Design", "Sturdy & Shatter-Resistant PS Plastic"],
+    link: "https://amzn.to/4ykUWtP",
+    trending: true
+  },
+  {
+    title: "Dasique Blending Mood Cheek #20 Melted Choco | 4 Blendable Shades",
+    category: "Beauty & Style",
+    image: "https://m.media-amazon.com/images/I/51KEUsA-yyL._SL1000_.jpg",
+    rating: 4.5,
+    reviews: "200+",
+    price: "$21.90",
+    highlights: ["4 Blendable Shades", "Silky & Soft Blur Finish", "Korean Makeup & 100% Vegan"],
+    link: "https://amzn.to/461Inra",
+    trending: true
+  },
+  {
+    title: "LANEIGE Glaze Craze Tinted Lip Serum Set - Donut Delight",
+    category: "Beauty & Style",
+    image: "https://m.media-amazon.com/images/I/71UcicXUJmL._SL1500_.jpg",
+    rating: 4.7,
+    reviews: "148",
+    price: "$38.00",
+    highlights: ["Hydrating & Glossy Finish", "Plumping Polypeptides Formula", "Includes Cute Bag Charm Keychain"],
+    link: "https://amzn.to/3Uq0YKZ",
+    trending: true
+  }
 ];
 
 const grid = document.getElementById('productGrid');
@@ -560,6 +644,56 @@ document.getElementById('newsletterForm').addEventListener('submit', (e) => {
   e.preventDefault();
   document.getElementById('newsletterMsg').classList.remove('hidden');
   e.target.reset();
+});
+
+// Modal Logic for About, Privacy & Disclaimer
+const modal = document.getElementById('infoModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalContent = document.getElementById('modalContent');
+
+const modalData = {
+  about: {
+    title: "About EverydayFindsHub",
+    content: `
+      <p>Welcome to <strong>EverydayFindsHub</strong> — your reliable guide to everyday lifestyle upgrades, modern home solutions, and smart tech finds.</p>
+      <p>Our goal is straightforward: save your valuable time. Instead of spending hours scrolling through thousands of products, we analyze user reviews, real-life durability, and practical value to curate only the most worthwhile products available on Amazon.</p>
+      <p>We are completely independent and focused on providing genuine recommendations that make your day-to-day routine easier and more enjoyable.</p>
+    `
+  },
+  privacy: {
+    title: "Privacy Policy",
+    content: `
+      <p>Your privacy is important to us. EverydayFindsHub does not directly collect, sell, or trade any personal information from our casual visitors.</p>
+      <p><strong>Newsletter:</strong> If you voluntarily subscribe to our newsletter, your email address is used solely to deliver periodic product roundups and helpful guides. You can unsubscribe at any time.</p>
+      <p><strong>Affiliate Cookies:</strong> When you click on product links redirecting to Amazon, a standard tracking cookie is placed by Amazon.com solely to attribute qualifying purchases. We do not store or track your personal payment or account details.</p>
+    `
+  },
+  disclaimer: {
+    title: "Amazon Affiliate Disclaimer",
+    content: `
+      <p><strong>EverydayFindsHub is a participant in the Amazon Services LLC Associates Program.</strong></p>
+      <p>This affiliate advertising program provides a means for independent publishers to earn advertising fees by linking to Amazon.com and affiliated international stores.</p>
+      <p>Whenever you click through a link on this website and complete a purchase, we may earn a small referral commission at <strong>no extra cost to you</strong>. Product prices and availability are accurate at the time of publication and are subject to change directly by Amazon.</p>
+    `
+  }
+};
+
+function openModal(type) {
+  if (modalData[type]) {
+    modalTitle.textContent = modalData[type].title;
+    modalContent.innerHTML = modalData[type].content;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+}
+
+function closeModal() {
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+window.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
 });
 
 // Init
